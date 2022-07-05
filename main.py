@@ -10,14 +10,17 @@ from itertools import accumulate
 
 
 def path_finding():
-    n = int(input("Введите количество адресов: "))
+    # n = int(input("Введите количество адресов: "))
+    n = 5
     m = 50  # число для генерации координат
     a = 0  # число для генерации координа
     distance = []
-    x = np.random.uniform(a, m, n)  # генерации  X координат в виде numpy матрицы
-    y = np.random.uniform(a, m, n)  # генерации  Y координат в виде numpy матрицы
-    x[len(x) - 1] = 0  # делаем начальный пункт всегда в нуле
-    y[len(y) - 1] = 0  # делаем начальный пункт всегда в нуле
+    x = [2, 5, 6, 8, 0]
+    y = [5, 2, 6, 3, 2]
+    # x = np.random.uniform(a, m, n)  # генерации  X координат в виде numpy матрицы
+    # y = np.random.uniform(a, m, n)  # генерации  Y координат в виде numpy матрицы
+    # x[len(x) - 1] = 0  # делаем начальный пункт всегда в нуле
+    # y[len(y) - 1] = 2  # делаем начальный пункт всегда в нуле
     start = len(x) - 1  # номер города откуда почтальон начинает движение
     mas = np.zeros([n, n])
     for i in range(n):
@@ -59,7 +62,7 @@ def path_finding():
     # plt.legend(loc='best')
     # plt.grid(True)
     # plt.show()
-    return answer + ' -> (0.0, 0.0) ' + str(distance[-1]) + ' = ' + str(s)
+    # return answer + ' -> (0.0, 2.0) ' + str(distance[-1]) + ' = ' + str(s)
 
 
 print(path_finding())

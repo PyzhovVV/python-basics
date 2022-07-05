@@ -34,20 +34,25 @@ def find_coordinates():  # нахождение координат нажато�
     return row, column
 
 
-# def computer_moving(mas, game_over):
-#     trying = True
-#     while trying:
-#         rand_x, rand_y = randint(0, len(mas) - 1), randint(0, len(mas) - 1)
-#         copy_mas = mas
-#         copy_mas[rand_x][rand_y] = 'o'
-#         temp = check_losing(copy_mas, 'o')
-#         print(temp)
-#         if mas[rand_x][rand_y] == 0 and temp is False:  # компьютер ставит нули рандомно,
-#             # но проверяет, чтобы не поставить его 5-м в ряд, строку или диагональ
-#             mas[rand_x][rand_y] = 'o'
-#             game_over = check_losing(mas, 'o')
-#             trying = False
-#     return mas, game_over
+def computer_moving(mas, game_over):
+    trying = True
+    count = 0
+    while trying:
+        rand_x, rand_y = randint(0, len(mas) - 1), randint(0, len(mas) - 1)
+        count += 1
+        if count > 99:
+            game_over = 'o'
+            trying = False
+        if mas[rand_x][rand_y] == 0:
+            copy_mas = deepcopy(mas)
+            copy_mas[rand_x][rand_y] = 'o'
+            temp = check_losing(copy_mas, 'o')
+            if temp is False:  # компьютер ставит нули рандомно,
+                # но проверяет, чтобы не поставить его 5-м в ряд, строку или диагональ
+                mas[rand_x][rand_y] = 'o'
+                game_over = check_losing(mas, 'o')
+                trying = False
+    return mas, game_over
 
 
 black = (0, 0, 0)
@@ -78,23 +83,7 @@ while running:
                 mas[row][column] = 'x'
                 game_over = check_losing(mas, 'x')
                 if not game_over:
-                    trying = True
-                    count = 0
-                    while trying:
-                        rand_x, rand_y = randint(0, len(mas) - 1), randint(0, len(mas) - 1)
-                        count += 1
-                        if count > 99:
-                            game_over = 'o'
-                            trying = False
-                        if mas[rand_x][rand_y] == 0:
-                            copy_mas = deepcopy(mas)
-                            copy_mas[rand_x][rand_y] = 'o'
-                            temp = check_losing(copy_mas, 'o')
-                            if temp is False:  # компьютер ставит нули рандомно,
-                                # но проверяет, чтобы не поставить его 5-м в ряд, строку или диагональ
-                                mas[rand_x][rand_y] = 'o'
-                                game_over = check_losing(mas, 'o')
-                                trying = False
+                    mas, game_over = computer_moving(mas, game_over)
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:  # перезапуск игры нажатием пробела
             game_over = False
             mas = [[0] * 10 for _ in range(10)]
