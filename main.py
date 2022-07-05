@@ -12,8 +12,8 @@ from itertools import accumulate
 def path_finding():
     # n = int(input("Введите количество адресов: "))
     n = 5
-    m = 50  # число для генерации координат
-    a = 0  # число для генерации координа
+    # m = 50  # число для генерации координат
+    # a = 0  # число для генерации координа
     distance = []
     x = [2, 5, 6, 8, 0]
     y = [5, 2, 6, 3, 2]
@@ -39,14 +39,11 @@ def path_finding():
         way.append(s.index(min(s)))  # индексы пунктов ближайших городов соседей
         for j in range(i):
             mas[way[i], way[j]] = float('inf')
-    distance += [
-        ((x[way[n - 1]] - x[way[0]]) ** 2 + (y[way[n - 1]] - y[way[0]]) ** 2) ** 0.5, ]  # прибавляем путь обратно
-    s = sum(distance)  # длина всего пути
+    distance += [((x[way[n - 1]] - x[way[0]]) ** 2
+                  + (y[way[n - 1]] - y[way[0]]) ** 2) ** 0.5, ]  # прибавляем путь обратно
     path = [(x[i], y[i]) for i in way]  # путь в виде координат точек
     answer = str(path[0])
     distance = list(accumulate(distance))
-    print(way)
-    print(distance)
     for i in range(1, len(way)):
         answer += ' -> ' + str(path[i]) + ' ' + str(distance[i - 1])
     # """Визуализация"""
@@ -62,7 +59,7 @@ def path_finding():
     # plt.legend(loc='best')
     # plt.grid(True)
     # plt.show()
-    # return answer + ' -> (0.0, 2.0) ' + str(distance[-1]) + ' = ' + str(s)
+    return answer + ' -> (0.0, 2.0) ' + str(distance[-1]) + ' = ' + str(distance[-1])
 
 
 print(path_finding())
